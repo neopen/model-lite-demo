@@ -1,0 +1,1 @@
+一个完整、可运行、带详细中文注释的 模型剪枝 + 微调（Pruning + Fine-tuning）流程 Demo，专为语音识别（ASR）中的 Conformer 模型子模块（Conv2d + Linear） 设计。

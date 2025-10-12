@@ -8,7 +8,7 @@
 import torch
 import torch.nn as nn
 
-from ModelLightweighting.Pruning.model import TinyConformerASR
+from model import TinyConformerASR
 
 
 def prune_conv_layer(conv: nn.Conv2d, keep_indices: torch.Tensor) -> nn.Conv2d:

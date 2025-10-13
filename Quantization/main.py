@@ -6,6 +6,7 @@
 """
 # main.py
 import os
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 import torch
 torch.set_num_threads(4)

@@ -8,7 +8,7 @@
 import os
 
 import torch.nn as nn
-
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 import torch
 

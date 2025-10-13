@@ -7,7 +7,7 @@
 # main.py (CPU 优化版)
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = ""  # 强制禁用 GPU
-
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 import torch
 import torch.nn as nn
 torch.set_num_threads(4)  # 根据你的 CPU 核心数设置（如 2/4/8）

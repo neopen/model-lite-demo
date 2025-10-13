@@ -35,7 +35,7 @@ def apply_structured_pruning(model: nn.Module, prune_ratio: float = 0.3) -> nn.M
     """
     对 ASR 模型进行结构化剪枝（剪枝 conv1/conv2/out_proj/ctc 的输入和输出维度）
     """
-    print("🔍 开始基于 L1 范数评估通道重要性...")
+    print(" 开始基于 L1 范数评估通道重要性...")
     # === Step 1: 评估 conv1 通道重要性 ===
     conv1 = model.subsampling.conv1
     # 计算每个输出通道的 L1 范数
@@ -45,7 +45,7 @@ def apply_structured_pruning(model: nn.Module, prune_ratio: float = 0.3) -> nn.M
     num_keep = int(num_total * (1 - prune_ratio))
     # 保留 L1 范数最大的 num_keep 个通道
     _, keep_indices = torch.topk(l1_norm, num_keep, largest=True)
-    print(f"✂️  原通道数: {num_total}, 剪枝比例: {prune_ratio:.1%}, 保留通道数: {num_keep}")
+    print(f"  原通道数: {num_total}, 剪枝比例: {prune_ratio:.1%}, 保留通道数: {num_keep}")
 
     # === Step 2: 剪枝 conv1 和 conv2 ===
     pruned_conv1 = prune_conv_layer(conv1, keep_indices)
@@ -108,5 +108,5 @@ def apply_structured_pruning(model: nn.Module, prune_ratio: float = 0.3) -> nn.M
             new_ctc.bias.copy_(old_ctc.bias.data)
         new_model.ctc_classifier = new_ctc
 
-    print("✅ 剪枝后模型重建完成！所有维度已对齐。")
+    print(" 剪枝后模型重建完成！所有维度已对齐。")
     return new_model

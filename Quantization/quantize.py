@@ -26,7 +26,7 @@ def quantize_model_fp32_to_int8(model_fp32: nn.Module, calib_data) -> torch.nn.M
     Returns:
         量化后的 INT8 模型
     """
-    print("🔍 开始模型量化...")
+    print(" 开始模型量化...")
 
     # Step 1: 设置量化配置（仅支持 CPU 后端）
     qconfig_mapping = get_default_qconfig_mapping("x86")  # 或 "fbgemm"（Linux）
@@ -36,7 +36,7 @@ def quantize_model_fp32_to_int8(model_fp32: nn.Module, calib_data) -> torch.nn.M
     model_prepared = prepare(model_fp32, qconfig_mapping, example_inputs)
 
     # Step 3: 校准（用少量数据统计激活值范围）
-    print("📊 正在校准模型...")
+    print(" 正在校准模型...")
     with torch.no_grad():
         for _ in range(10):  # 10 个 batch 足够
             x, x_lens = get_sample_input()
@@ -44,5 +44,5 @@ def quantize_model_fp32_to_int8(model_fp32: nn.Module, calib_data) -> torch.nn.M
 
     # Step 4: 转换为量化模型
     model_int8 = convert(model_prepared)
-    print("✅ 量化完成！")
+    print(" 量化完成！")
     return model_int8

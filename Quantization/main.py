@@ -38,7 +38,7 @@ def benchmark_model(model, input_data, num_runs=50):
     return avg_latency
 
 def main():
-    print(f"🔧 设备: {device}")
+    print(f" 设备: {device}")
 
     # 1. 创建 FP32 模型
     model_fp32 = TinyConformerASR(input_dim=80, encoder_dim=128, vocab_size=1000).to(device)
@@ -55,7 +55,7 @@ def main():
     latency_fp32 = benchmark_model(model_fp32, test_input)
     latency_int8 = benchmark_model(model_int8, test_input)
 
-    print(f"\n📊 推理延迟对比 (batch=1, avg of 50 runs):")
+    print(f"\n 推理延迟对比 (batch=1, avg of 50 runs):")
     print(f"FP32: {latency_fp32:.2f} ms")
     print(f"INT8: {latency_int8:.2f} ms")
     print(f"加速比: {latency_fp32 / latency_int8:.2f}x")
@@ -65,11 +65,11 @@ def main():
         logits_fp32, _ = model_fp32(*test_input)  # 解包，只取 logits
         logits_int8, _ = model_int8(*test_input)
         diff = torch.mean(torch.abs(logits_fp32 - logits_int8)).item()
-        print(f"\n🔍 输出平均绝对误差: {diff:.6f}")
+        print(f"\n 输出平均绝对误差: {diff:.6f}")
 
     # 6. 保存量化模型（可选）
     torch.save(model_int8.state_dict(), "../data/model_int8.pth")
-    print("\n✅ 量化模型已保存为 'model_int8.pth'")
+    print("\n 量化模型已保存为 'model_int8.pth'")
 
 if __name__ == "__main__":
     main()

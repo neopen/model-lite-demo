@@ -44,8 +44,8 @@ def train_one_epoch(model, optimizer, criterion, num_steps=10, device="cpu"):
     return total_loss / num_steps
 
 def main():
-    print(f"🔧 运行设备: {device}")
-    print(f"🧵 CPU 线程数: {torch.get_num_threads()}")
+    print(f" 运行设备: {device}")
+    print(f" CPU 线程数: {torch.get_num_threads()}")
 
     # 1. 原始模型
     original_model = TinyConformerASR(input_dim=80, encoder_dim=128, vocab_size=1000).to(device)
@@ -59,7 +59,7 @@ def main():
     test_x, test_x_lens, _, _ = generate_dummy_batch()
     with torch.no_grad():
         logits, _ = pruned_model(test_x.to(device), test_x_lens.to(device))
-    print(f"✅ 剪枝模型前向成功！输出形状: {logits.shape}")
+    print(f" 剪枝模型前向成功！输出形状: {logits.shape}")
 
     # 4. 微调
     criterion = nn.CTCLoss(blank=0, zero_infinity=True)
@@ -69,7 +69,7 @@ def main():
         loss = train_one_epoch(pruned_model, optimizer, criterion, device=device)
         print(f"Epoch {epoch+1}/3, Loss: {loss:.4f}")
 
-    print("🎉 CPU 环境剪枝 + 微调完成！")
+    print(" CPU 环境剪枝 + 微调完成！")
 
 if __name__ == "__main__":
     main()
